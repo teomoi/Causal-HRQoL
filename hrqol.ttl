@@ -1,0 +1,57 @@
+@prefix : <http://www.example.com/ontologies/hrqol#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix disco: <http://rdf-vocabulary.ddialliance.org/discovery#> .
+@base <http://www.example.com/ontologies/hrqol> .
+
+<http://www.example.com/ontologies/hrqol> rdf:type owl:Ontology ;
+    owl:imports
+        <http://rdf-vocabulary.ddialliance.org/discovery>,
+        <http://www.w3.org/2004/02/skos/core>,
+        foaf: .
+
+:hasResponse rdf:type owl:ObjectProperty ;
+    rdfs:domain foaf:Person ;
+    rdfs:range :Response ;
+    rdfs:comment "Associates a person/patient to a response they gave to a question in a questionnaire."@en ;
+    rdfs:label "has response"@en .
+
+:isAfter rdf:type owl:ObjectProperty ;
+    rdfs:domain disco:Question ;
+    rdfs:range disco:Question ;
+    rdfs:comment "Used for representing the sequence of questions."@en ;
+    rdfs:label "is after"@en .
+
+:isCauseOf rdf:type owl:ObjectProperty ;
+    owl:inverseOf :isEffectOf ;
+    rdfs:domain disco:Question ;
+    rdfs:range disco:Question ;
+    rdfs:comment "Indicates that the response to a question is the cause of the response to another question."@en ;
+    rdfs:label "is cause of"@en .
+
+:isEffectOf rdf:type owl:ObjectProperty ;
+    rdfs:domain disco:Question ;
+    rdfs:range disco:Question ;
+    rdfs:comment "Indicates that the response to a question is the effect of the response to another question."@en ;
+    rdfs:label "is effect of"@en .
+
+:responseToQuestion rdf:type owl:ObjectProperty ;
+    rdfs:domain :Response ;
+    rdfs:range disco:Question ;
+    rdfs:comment "Associates a response to a specific question in a questionnaire."@en ;
+    rdfs:label "response to question"@en .
+
+:responseValue rdf:type owl:DatatypeProperty ;
+    rdfs:domain :Response ;
+    rdfs:range xsd:int ;
+    rdfs:comment "Assigns an integer value to a response for a questionnaire question."@en ;
+    rdfs:label "response value"@en .
+
+:Response rdf:type owl:Class ;
+    rdfs:comment "Represents the response to a question in a questionnaire."@en ;
+    rdfs:label "Questionnaire Response"@en .
